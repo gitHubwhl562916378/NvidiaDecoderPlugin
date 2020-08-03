@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2020-08-03 19:00:06
- * @LastEditTime: 2020-08-03 19:48:45
+ * @LastEditTime: 2020-08-03 21:25:17
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \git\NvidiaDecoder\nvidia_decoer_api.h
@@ -9,14 +9,14 @@
 #pragma once
 
 #ifdef linux
-#  define NVIDIADECODER_EXPORT __attribute__((visibility("default")))
+#  define DECODER_EXPORT __attribute__((visibility("default")))
 #else
-#  define NVIDIADECODER_EXPORT __declspec(dllexport)
+#  define DECODER_EXPORT __declspec(dllexport)
 #endif
 #include <string>
 #include <functional>
 
-class NVIDIADECODER_EXPORT DecoderApi
+class DECODER_EXPORT DecoderApi
 {
 public:
     virtual ~DecoderApi(){};
@@ -27,5 +27,5 @@ public:
 
 extern "C"
 {
-NVIDIADECODER_EXPORT DecoderApi* createDecoder();
+DECODER_EXPORT DecoderApi* createDecoder();
 }

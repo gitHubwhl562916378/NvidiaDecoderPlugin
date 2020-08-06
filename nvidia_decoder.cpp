@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2020-08-03 18:51:10
- * @LastEditTime: 2020-08-03 19:49:19
+ * @LastEditTime: 2020-08-05 15:39:43
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \git\NvidiaDecoder\nvidia_decoder.cpp
@@ -74,12 +74,18 @@ void NvidiaDecoder::stop()
     isStopedRequested_.store(true);
 }
 
+void * NvidiaDecoder::context()
+{
+    return cur_ctx_;
+}
+
 void NvidiaDecoder::decode(const std::string &source, const bool useDeviceFrame, const std::function<void(void *ptr, const int format, const int width, const int height, const std::string &error)> call_back)
 {
     if(!initContext()){
         return;
     }
     std::pair<CUcontext,std::string> v = m_ctxV.at(gcurIndex++ % m_ctxV.size());
+    cur_ctx_ = (void*)v.first;
     std::cout << "Use Contex in" << v.second << " ctx size " << m_ctxV.size() << std::endl;
 
     isStopedRequested_.store(false);

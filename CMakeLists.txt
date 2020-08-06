@@ -10,11 +10,11 @@ find_package(CUDA REQUIRED)
 include_directories(
     ${CUDA_INCLUDE_DIRS}
     ${CMAKE_CURRENT_SOURCE_DIR}/Video_Codec_SDK_10.0.26/Interface
-    D:/ffmpeg/x64/include
+    E:/ffmpeg/x64/include
 )
 link_directories(
     ${CMAKE_CURRENT_SOURCE_DIR}/Video_Codec_SDK_10.0.26/Lib/x64
-    D:/ffmpeg/x64/lib
+    E:/ffmpeg/x64/lib
 )
 
 aux_source_directory(. SRCS)

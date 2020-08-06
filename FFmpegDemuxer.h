@@ -227,6 +227,7 @@ private:
         AVDictionary *opt = nullptr;
 //        av_dict_set(&opt,"buffer_size","1024000",0);
 //        av_dict_set(&opt,"max_delay","0",0);
+        LOG(INFO) << szFilePath;
         av_dict_set(&opt,"rtsp_transport","tcp",0);
         av_dict_set(&opt,"stimeout","5000000",0);
 

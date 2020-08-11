@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2020-08-03 18:51:10
- * @LastEditTime: 2020-08-05 15:39:43
+ * @LastEditTime: 2020-08-06 17:44:52
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \git\NvidiaDecoder\nvidia_decoder.cpp
@@ -125,10 +125,6 @@ void NvidiaDecoder::decode(const std::string &source, const bool useDeviceFrame,
             }
             nFrame += nFrameReturned;
         } while (nVideoBytes && !isStopedRequested_.load());
-
-        if(!isStopedRequested_.load() && source.substr(0, 4) == "rtsp"){
-            call_back(nullptr, -1, -1, -1, "NvidiaDecoder::decode AVERROR_EOF");
-        }
     }catch(const std::exception &e){
         if(call_back){
             call_back(nullptr, -1, -1, -1, e.what());

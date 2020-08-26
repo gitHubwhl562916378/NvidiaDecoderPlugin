@@ -83,7 +83,6 @@ private:
         if(vden <= 0 || vnum <= 0){
             nfps = -1;
             LOG(ERROR) << "Get Fps failed" << std::endl;
-            return;
         }else{
             nfps = vnum/vden;
             LOG(INFO) << "video fps:" << nfps << std::endl;

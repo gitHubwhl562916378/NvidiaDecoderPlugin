@@ -11,7 +11,7 @@
 #include "FFmpegDemuxer.h"
 #include "nvidia_decoder.h"
 
-simplelogger::Logger *logger = simplelogger::LoggerFactory::CreateConsoleLogger();
+simplelogger::Logger *logger = simplelogger::LoggerFactory::CreateFileLogger("nvidia_log.txt");
 bool isInitsized = false;
 int gcurIndex = 0;
 std::mutex gmtx;
@@ -92,10 +92,10 @@ void NvidiaDecoder::decode(const std::string &source, const bool useDeviceFrame,
     try{
         FFmpegDemuxer demuxer(source.data());
         fps_ = demuxer.GetFps();
-        if(fps_ <= 0)
-        {
-            return;
-        }
+		if (demuxer.GetChromaFormat() < 0)
+		{
+			throw std::invalid_argument("unknown pixformat");
+		}
 
         NvDecoder decoder(v.first, useDeviceFrame, FFmpeg2NvCodecId(demuxer.GetVideoCodec()), false, false);
         bool bDecodeOutSemiPlanar = false;

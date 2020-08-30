@@ -1,1 +1,2 @@
 cmake -G  "Visual Studio 15 2017 Win64" ..
+ffmpeg.exe -i screen.mp4 -i screen.mp4 -filter_complex "nullsrc=size=2560*1440[base];[0:v]scale=iw/2:ih/2[left];[1:v]scale=iw/2:ih/2[right];[base][left]overlay=0:0[temp1];[temp1][right]overlay=w:0" out.mp4

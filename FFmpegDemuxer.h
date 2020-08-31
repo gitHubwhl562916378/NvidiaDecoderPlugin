@@ -142,6 +142,7 @@ private:
                 !strcmp(fmtc->iformat->long_name, "QuickTime / MOV") 
                 || !strcmp(fmtc->iformat->long_name, "FLV (Flash Video)") 
                 || !strcmp(fmtc->iformat->long_name, "Matroska / WebM")
+				|| !strcmp(fmtc->iformat->long_name, "RTSP input")
             );
         bMp4HEVC = eVideoCodec == AV_CODEC_ID_HEVC && (
                 !strcmp(fmtc->iformat->long_name, "QuickTime / MOV")
@@ -184,6 +185,8 @@ private:
             avcodec_parameters_copy(bsfc->par_in, fmtc->streams[iVideoStream]->codecpar);
             ck(av_bsf_init(bsfc));
         }
+		
+		av_dump_format(fmtc, 0, fmtc->url, 0); //输出视频信息
     }
 
     AVFormatContext *CreateFormatContext(DataProvider *pDataProvider) {

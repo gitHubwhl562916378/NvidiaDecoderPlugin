@@ -104,12 +104,18 @@ void NvidiaDecoder::decode(const std::string &source, const bool useDeviceFrame,
         do {
             demuxer.Demux(&pVideo, &nVideoBytes);
             nFrameReturned = decoder.Decode(pVideo, nVideoBytes);
-			if (!nFrame && nFrameReturned)
+			if (!nFrame)
 			{
-				LOG(INFO) << decoder.GetVideoInfo();
-				if (nFrameDemuxed >= 30)
+				if (nFrameReturned)
 				{
-					call_back(nullptr, -1, -1, -1, "NvDecoder decode failed, not support");
+					LOG(INFO) << decoder.GetVideoInfo();
+				}
+				else {
+					if (nFrameDemuxed >= 30)
+					{
+						call_back(nullptr, -1, -1, -1, "NvDecoder decode failed, not support");
+						stop();
+					}
 				}
 			}
 

@@ -99,13 +99,19 @@ void NvidiaDecoder::decode(const std::string &source, const bool useDeviceFrame,
 
         NvDecoder decoder(v.first, useDeviceFrame, FFmpeg2NvCodecId(demuxer.GetVideoCodec()), false, false);
         bool bDecodeOutSemiPlanar = false;
-        int nVideoBytes = 0, nFrameReturned = 0, nFrame = 0;
+        int nVideoBytes = 0, nFrameReturned = 0, nFrame = 0, nFrameDemuxed = 0;
         uint8_t *pVideo = NULL, *pFrame;
         do {
             demuxer.Demux(&pVideo, &nVideoBytes);
             nFrameReturned = decoder.Decode(pVideo, nVideoBytes);
-            if (!nFrame && nFrameReturned)
-                LOG(INFO) << decoder.GetVideoInfo();
+			if (!nFrame && nFrameReturned)
+			{
+				LOG(INFO) << decoder.GetVideoInfo();
+				if (nFrameDemuxed >= 30)
+				{
+					call_back(nullptr, -1, -1, -1, "NvDecoder decode failed, not support");
+				}
+			}
 
             bDecodeOutSemiPlanar = (decoder.GetOutputFormat() == cudaVideoSurfaceFormat_NV12) || (decoder.GetOutputFormat() == cudaVideoSurfaceFormat_P016);
 
@@ -124,6 +130,7 @@ void NvidiaDecoder::decode(const std::string &source, const bool useDeviceFrame,
                 }
             }
             nFrame += nFrameReturned;
+			nFrameDemuxed++;
         } while (nVideoBytes && !isStopedRequested_.load());
     }catch(const std::exception &e){
         if(call_back){

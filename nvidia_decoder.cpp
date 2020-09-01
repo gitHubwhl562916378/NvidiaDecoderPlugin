@@ -12,6 +12,7 @@
 #include "nvidia_decoder.h"
 
 simplelogger::Logger *logger = simplelogger::LoggerFactory::CreateFileLogger("nvidia_log.txt");
+//simplelogger::Logger *logger = simplelogger::LoggerFactory::CreateConsoleLogger();
 bool isInitsized = false;
 int gcurIndex = 0;
 std::mutex gmtx;
@@ -109,12 +110,12 @@ void NvidiaDecoder::decode(const std::string &source, const bool useDeviceFrame,
 				if (nFrameReturned)
 				{
 					LOG(INFO) << decoder.GetVideoInfo();
+					LOG(INFO) << source << " first decode use demux " << nFrameDemuxed << std::endl;
 				}
 				else {
-					if (nFrameDemuxed >= 30)
+					if (nFrameDemuxed >= 1400)
 					{
-						call_back(nullptr, -1, -1, -1, "NvDecoder decode failed, not support");
-						stop();
+						throw std::invalid_argument("Decode failed when demuexed 1400 packet, stream quit");
 					}
 				}
 			}
@@ -139,6 +140,7 @@ void NvidiaDecoder::decode(const std::string &source, const bool useDeviceFrame,
 			nFrameDemuxed++;
         } while (nVideoBytes && !isStopedRequested_.load());
     }catch(const std::exception &e){
+		LOG(ERROR) << e.what() << std::endl;
         if(call_back){
             call_back(nullptr, -1, -1, -1, e.what());
         }

@@ -1,0 +1,17 @@
+git remote add origin .... //添加远端地址origin
+git remote set-url origin .... //重新设置远端地址，origin要先存在
+git remote rm origin //删除远端地址origin
+git checkout -- filename //放弃文件修改
+git reset HEAD filename //放弃git add 添加的文件
+git tag -a v1.0 -m "new tag" //创建一个v1.0的tag
+git push -f origin v1.0 //更新远端tag1.0
+git branch -d dev //删除本地dev分支
+git push -d origin dev //删除远端dev分支
+git submodule add <url> <path> 添加子模块
+git diff --cached查看修改内容可以看到增加了子模块，并且新文件下为子模块的提交hash摘要
+git commit提交即完成子模块的添加
+
+git submodule init 根目录下执行， clone子模块
+git submodule update 根目录下执行，更新子模块
+
+git rm --cached 子模块名称 删除子模块

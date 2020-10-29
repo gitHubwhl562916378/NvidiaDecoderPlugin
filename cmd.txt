@@ -3,6 +3,7 @@ ffmpeg.exe -i screen.mp4 -i screen.mp4 -filter_complex "nullsrc=size=2560*1440[b
 ffmpeg.exe -re -i screen.mp4 -rtsp_transport tcp -vcodec copy -f rtsp rtsp://192.168.2.66/test //推流
 ffmpeg -i person.mp4 -threads 2 -vcodec h264 person_h264.mp4
 ffmpeg -threads 2 -re -fflags +genpts -stream_loop -1 -i 1080p.mkv -rtsp_transport tcp -vcodec copy -f rtsp rtsp://192.168.2.66/1080p.mkv //多线程，循环推流
+ffplay -rtsp_transport tcp -i rtsp://localhost:556/ai_live/1
 
 https://github.com/gitHubwhl562916378/FaceDetector.git
 sudo add-apt-repository "deb http://security.ubuntu.com/ubuntu xenial-security main"

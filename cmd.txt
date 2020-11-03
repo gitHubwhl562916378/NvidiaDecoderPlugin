@@ -8,7 +8,7 @@ ffmpeg -f gdigrab -i desktop eguid.mp4 //桌面视频录制
 ffmpeg -f gdigrab -i desktop -vcodec libx264 -preset:v ultrafast -tune:v zerolatency -f flv rtmp://eguid.cc:1935/rtmp/destop //桌面推流
 //本地摄像头推流
 ffmpeg -list_devices true -f dshow -i dummy //找出本摄像头名字
-ffmpeg -f dshow -i video="Integrated Camera" -vcodec libx264 -acodec copy -preset:v ultrafast -tune:v zerolatency -f flv rtmp://eguid.cc:1935/rtmp/eguid //用上面的摄像头推流
+ffmpeg -f dshow -i video="Logitech HD Webcam C270" -vcodec libx264 -acodec copy -preset:v ultrafast -tune:v zerolatency -f flv rtsp://192.168.2.66/whl_desktop //用上面的摄像头推流
 
 https://github.com/gitHubwhl562916378/FaceDetector.git
 sudo add-apt-repository "deb http://security.ubuntu.com/ubuntu xenial-security main"

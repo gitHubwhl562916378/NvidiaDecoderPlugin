@@ -6,6 +6,7 @@ ffmpeg -threads 2 -re -fflags +genpts -stream_loop -1 -i 1080p.mkv -rtsp_transpo
 ffplay -rtsp_transport tcp -i rtsp://localhost:556/ai_live/1
 ffmpeg -f gdigrab -i desktop eguid.mp4 //桌面视频录制
 ffmpeg -f gdigrab -i desktop -vcodec libx264 -rtsp_transport tcp -preset:v ultrafast -tune:v zerolatency -pix_fmt yuv420p -f rtsp rtsp://10.10.8.74/whl_desktop //桌面推流
+ffmpeg -f gdigrab -i desktop -vcodec libx264 -rtsp_transport tcp -pix_fmt yuv420p -f rtsp rtsp://10.10.8.74/whl_desktop //桌面推流质量较好
 //本地摄像头推流
 ffmpeg -list_devices true -f dshow -i dummy //找出本摄像头名字
 ffmpeg -f dshow -i video="Logitech HD Webcam C270" -vcodec libx264 -rtsp_transport tcp -acodec copy -preset:v ultrafast -tune:v zerolatency -f rtsp rtsp://10.10.8.74/whl_logitech //用上面的摄像头推流

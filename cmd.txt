@@ -1,7 +1,7 @@
 cmake -G  "Visual Studio 15 2017 Win64" ..
 ffmpeg.exe -i screen.mp4 -i screen.mp4 -filter_complex "nullsrc=size=2560*1440[base];[0:v]scale=iw/2:ih/2[left];[1:v]scale=iw/2:ih/2[right];[base][left]overlay=0:0[temp1];[temp1][right]overlay=w:0" out.mp4 //拼接视频
 ffmpeg.exe -re -i screen.mp4 -rtsp_transport tcp -vcodec copy -f rtsp rtsp://192.168.2.66/test //视频文件推流
-ffmpeg.exe -rtsp_transport tcp  -i rtsp://192.168.2.66/kuanzhai1.mp4 -rtsp_transport tcp  -vcodec copy -f rtsp rtsp://192.168.2.66/qwe //rtsp流重定向
+ffmpeg.exe -rtsp_transport tcp -i rtsp://admin:123ABCabc@10.10.1.9:554/H.264/ch36/main/av_stream -rtsp_transport tcp  -vcodec copy -f rtsp rtsp://192.168.2.66/camera //rtsp流重定向
 ffmpeg -i person.mp4 -threads 2 -vcodec h264 person_h264.mp4
 ffmpeg -threads 2 -re -fflags +genpts -stream_loop -1 -i 1080p.mkv -rtsp_transport tcp -vcodec copy -f rtsp rtsp://192.168.2.66/1080p.mkv //多线程，循环推流
 ffplay -rtsp_transport tcp -i rtsp://localhost:556/ai_live/1

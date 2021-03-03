@@ -1,12 +1,13 @@
 /*
  * @Author: your name
  * @Date: 2020-08-03 18:51:10
- * @LastEditTime: 2020-08-06 17:44:52
+ * @LastEditTime: 2021-03-03 17:27:52
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \git\NvidiaDecoder\nvidia_decoder.cpp
  */
 #include <mutex>
+#include <cuda_runtime.h>
 #include "NvDecoder.h"
 #include "FFmpegDemuxer.h"
 #include "nvidia_decoder.h"
@@ -68,6 +69,11 @@ NvidiaDecoder::~NvidiaDecoder()
 int NvidiaDecoder::fps()
 {
     return fps_;
+}
+
+int NvidiaDecoder::memCpy(void *dst, const void *src, size_t count, int kind)
+{
+    return cudaMemcpy(dst, src, count, cudaMemcpyKind(kind));
 }
 
 void NvidiaDecoder::stop()

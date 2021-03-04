@@ -59,3 +59,5 @@ PKG_CONFIG_PATH=/usr/local/lib/pkgconfig \
 --enable-gpl \
 --enable-ffmpeg \
 --enable-ffplay
+
+https://renzhesub.com/link/2tFcm8KPpY8ASIsL?sub=1

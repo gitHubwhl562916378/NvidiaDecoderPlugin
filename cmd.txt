@@ -11,6 +11,7 @@ ffmpeg -f gdigrab -i desktop -vcodec libx264 -rtsp_transport tcp -pix_fmt yuv420
 //本地摄像头推流
 ffmpeg -list_devices true -f dshow -i dummy //找出本摄像头名字
 ffmpeg -f dshow -i video="Logitech HD Webcam C270" -vcodec libx264 -rtsp_transport tcp -acodec copy -preset:v ultrafast -tune:v zerolatency -f rtsp rtsp://192.168.2.66/whl_logitech //用上面的摄像头推流
+ffmpeg -re -i rtsp://<ip>/stream1 -rtsp_transport tcp -codec copy -f mp4 -movflags frag_keyframe+empty_moov+default_base_moof -frag_duration 4 camera.mp4 //拉流保存成视频
 
 https://github.com/gitHubwhl562916378/FaceDetector.git
 sudo add-apt-repository "deb http://security.ubuntu.com/ubuntu xenial-security main"
